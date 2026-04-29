@@ -16,3 +16,9 @@ class SubtractionOperation(MathOperation):
         super().__init__("Subtraction")
     def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
         return first_operand_value - second_operand_value
+    
+class MultiplicationOperation(MathOperation):
+    def __init__(self):
+        super().__init__("Multiplication")
+    def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
+        return first_operand_value * second_operand_value
