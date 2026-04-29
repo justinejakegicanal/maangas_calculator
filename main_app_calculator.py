@@ -10,4 +10,13 @@ class MaangasCalculatorApplication:
             '4': DivisionOperation()
         }
         self.successful_calculation_session_counter = 0
-        
+    
+    def generate_time_based_greeting(self):
+        current_system_hour = datetime.datetime.now().hour
+        if current_system_hour < 12:
+            return "Good morning"
+        elif 12 <= current_system_hour < 18:
+            return "Good afternoon"
+        else:
+            return "Good evening"
+
