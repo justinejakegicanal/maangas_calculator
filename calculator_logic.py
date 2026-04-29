@@ -1,6 +1,6 @@
 class MathOperation:
-    def __init__(self, operation_identity):
-        self.operation_identity = operation_identity
+    def __init__(self, assigned_operation_name):
+        self.assigned_operation_name = assigned_operation_name
 
-    def execute_calculation(self, first_number, second_number):
+    def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
         pass
