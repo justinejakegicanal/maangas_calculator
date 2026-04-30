@@ -19,4 +19,19 @@ class MaangasCalculatorApplication:
             return "Good afternoon"
         else:
             return "Good evening"
+        
+    def start_calculator_interface(self):
+        dynamic_system_greeting = self.generate_time_based_greeting()
+        print(f"🔥 {dynamic_system_greeting.upper()}! WELCOME TO MAANGAS PRO CALCULATOR 🔥")
+
+        while True:
+            print("\nAVAILABLE MATHEMATICAL OPERATIONS:")
+            print("[1] Addition  [2] Subtraction")
+            print("[3] Multiplication  [4] Division")
+            
+            selected_menu_index_choice = input("Select operation index number: ")
+            user_provided_first_number = float(input("Enter first numerical value: "))
+            user_provided_second_number = float(input("Enter second numerical value: "))
+            
+            break 
 
