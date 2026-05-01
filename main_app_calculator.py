@@ -33,5 +33,9 @@ class MaangasCalculatorApplication:
             user_provided_first_number = float(input("Enter first numerical value: "))
             user_provided_second_number = float(input("Enter second numerical value: "))
             
+            active_math_operation_instance = self.mathematical_operations_registry[selected_menu_index_choice]
+            final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
+            
+            print(f"\n✅ COMPUTATION RESULT ({active_math_operation_instance.assigned_operation_name}): {final_computed_result}")
             break 
 
