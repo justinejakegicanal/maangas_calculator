@@ -28,3 +28,17 @@ class DivisionOperation(MathOperation):
         super().__init__("Division")
     def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
         return first_operand_value / second_operand_value
+
+class ExponentiationOperation(MathOperation):
+    def __init__(self):
+        super().__init__("Exponentiation (Power)")
+    def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
+        return first_operand_value ** second_operand_value
+
+class ModuloOperation(MathOperation):
+    def __init__(self):
+        super().__init__("Modulo (Remainder)")
+    def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
+        if second_operand_value == 0:
+            raise ZeroDivisionError("Mathematical Error: Modulo by zero is strictly prohibited.")
+        return first_operand_value % second_operand_value
