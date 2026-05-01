@@ -57,3 +57,7 @@ class MaangasCalculatorApplication:
                     print(f"\nTOTAL SUCCESSFUL CALCULATIONS RECORDED: {self.successful_calculation_session_counter}")
                     print("🔥 THANK YOU FOR UTILIZING MAANGAS PRO CALCULATOR. STAY ELITE. 🔥")
                     break
+
+if __name__ == "__main__":
+    primary_calculator_app_instance = MaangasCalculatorApplication()
+    primary_calculator_app_instance.start_calculator_interface()
