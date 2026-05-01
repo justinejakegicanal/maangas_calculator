@@ -50,3 +50,10 @@ class MaangasCalculatorApplication:
                 print(f"🚫 OPERATION DENIED: {captured_zero_division_error}")
             except Exception as unhandled_system_error:
                 print(f"💥 CRITICAL SYSTEM ERROR: {unhandled_system_error}")
+
+            finally:
+                user_continue_prompt_response = input("\nWould you like to perform another mathematical operation? (y/n): ").lower().strip()
+                if user_continue_prompt_response != 'y':
+                    print(f"\nTOTAL SUCCESSFUL CALCULATIONS RECORDED: {self.successful_calculation_session_counter}")
+                    print("🔥 THANK YOU FOR UTILIZING MAANGAS PRO CALCULATOR. STAY ELITE. 🔥")
+                    break
