@@ -25,17 +25,26 @@ class MaangasCalculatorApplication:
         print(f"🔥 {dynamic_system_greeting.upper()}! WELCOME TO MAANGAS PRO CALCULATOR 🔥")
 
         while True:
-            print("\nAVAILABLE MATHEMATICAL OPERATIONS:")
-            print("[1] Addition  [2] Subtraction")
-            print("[3] Multiplication  [4] Division")
-            
-            selected_menu_index_choice = input("Select operation index number: ")
-            user_provided_first_number = float(input("Enter first numerical value: "))
-            user_provided_second_number = float(input("Enter second numerical value: "))
-            
-            active_math_operation_instance = self.mathematical_operations_registry[selected_menu_index_choice]
-            final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
-            
-            print(f"\n✅ COMPUTATION RESULT ({active_math_operation_instance.assigned_operation_name}): {final_computed_result}")
-            break 
+            try:
+                print("\nAVAILABLE MATHEMATICAL OPERATIONS:")
+                print("[1] Addition  [2] Subtraction")
+                print("[3] Multiplication  [4] Division")
+                
+                selected_menu_index_choice = input("Select operation index number: ")
 
+                if selected_menu_index_choice not in self.mathematical_operations_registry:
+                    raise ValueError("The operation choice provided is out of bounds.")
+
+                user_provided_first_number = float(input("Enter first numerical value: "))
+                user_provided_second_number = float(input("Enter second numerical value: "))
+
+                active_math_operation_instance = self.mathematical_operations_registry[selected_menu_index_choice]
+                final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
+                
+                self.successful_calculation_session_counter += 1
+                print(f"\n✅ COMPUTATION RESULT ({active_math_operation_instance.assigned_operation_name}): {final_computed_result}")
+
+            except ValueError as captured_value_error_message:
+                print(f"⚠️  INVALID INPUT DETECTED: {captured_value_error_message}")
+            
+            break 
