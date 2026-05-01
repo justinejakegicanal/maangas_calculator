@@ -46,5 +46,7 @@ class MaangasCalculatorApplication:
 
             except ValueError as captured_value_error_message:
                 print(f"⚠️  INVALID INPUT DETECTED: {captured_value_error_message}")
-            
-            break 
+            except ZeroDivisionError as captured_zero_division_error:
+                print(f"🚫 OPERATION DENIED: {captured_zero_division_error}")
+            except Exception as unhandled_system_error:
+                print(f"💥 CRITICAL SYSTEM ERROR: {unhandled_system_error}")
