@@ -15,6 +15,9 @@ class MaangasCalculatorApplication:
         self.successful_calculation_session_counter = 0
         self.calculation_history_log = []  
     
+    def clear_terminal_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+    
     def generate_time_based_greeting(self):
         current_system_hour = datetime.datetime.now().hour
         if current_system_hour < 12:
