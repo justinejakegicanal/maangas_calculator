@@ -1,5 +1,6 @@
+import os
 import datetime
-from calculator_logic import AdditionOperation, SubtractionOperation, MultiplicationOperation, DivisionOperation
+from calculator_logic import AdditionOperation, SubtractionOperation, MultiplicationOperation, DivisionOperation, ExponentiationOperation, ModuloOperation
 
 class MaangasCalculatorApplication:
     def __init__(self):
@@ -7,9 +8,12 @@ class MaangasCalculatorApplication:
             '1': AdditionOperation(),
             '2': SubtractionOperation(),
             '3': MultiplicationOperation(),
-            '4': DivisionOperation()
+            '4': DivisionOperation(),
+            '5': ExponentiationOperation(),
+            '6': ModuloOperation()
         }
         self.successful_calculation_session_counter = 0
+        self.calculation_history_log = []  
     
     def generate_time_based_greeting(self):
         current_system_hour = datetime.datetime.now().hour
