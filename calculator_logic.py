@@ -27,6 +27,8 @@ class DivisionOperation(MathOperation):
     def __init__(self):
         super().__init__("Division")
     def execute_mathematical_calculation(self, first_operand_value, second_operand_value):
+        if second_operand_value == 0:
+            raise ZeroDivisionError("Mathematical Error: Dividing a number by zero is strictly prohibited.")
         return first_operand_value / second_operand_value
 
 class ExponentiationOperation(MathOperation):
