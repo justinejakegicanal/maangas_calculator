@@ -28,14 +28,16 @@ class MaangasCalculatorApplication:
             return "Good evening"
         
     def start_calculator_interface(self):
-        dynamic_system_greeting = self.generate_time_based_greeting()
-        print(f"🔥 {dynamic_system_greeting.upper()}! WELCOME TO MAANGAS PRO CALCULATOR 🔥")
-
         while True:
+            self.clear_terminal_screen()
+            dynamic_system_greeting = self.generate_time_based_greeting()
+            print(f"🔥 {dynamic_system_greeting.upper()}! WELCOME TO MAANGAS PRO CALCULATOR 🔥\n")
+
             try:
-                print("\nAVAILABLE MATHEMATICAL OPERATIONS:")
-                print("[1] Addition  [2] Subtraction")
-                print("[3] Multiplication  [4] Division")
+                print("AVAILABLE MATHEMATICAL OPERATIONS:")
+                print("[1] Addition       [2] Subtraction")
+                print("[3] Multiplication [4] Division")
+                print("[5] Exponentiation [6] Modulo (Remainder)\n")
                 
                 selected_menu_index_choice = input("Select operation index number: ")
 
@@ -49,18 +51,30 @@ class MaangasCalculatorApplication:
                 final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
                 
                 self.successful_calculation_session_counter += 1
-                print(f"\n✅ COMPUTATION RESULT ({active_math_operation_instance.assigned_operation_name}): {final_computed_result}")
+                
+                history_entry = f"[{active_math_operation_instance.assigned_operation_name}] {user_provided_first_number} & {user_provided_second_number} = {final_computed_result}"
+                self.calculation_history_log.append(history_entry)
+
+                print(f"\n✅ COMPUTATION RESULT: {final_computed_result}")
 
             except ValueError as captured_value_error_message:
-                print(f"⚠️  INVALID INPUT DETECTED: {captured_value_error_message}")
+                print(f"\n⚠️  INVALID INPUT DETECTED: {captured_value_error_message}")
             except ZeroDivisionError as captured_zero_division_error:
-                print(f"🚫 OPERATION DENIED: {captured_zero_division_error}")
+                print(f"\n🚫 OPERATION DENIED: {captured_zero_division_error}")
             except Exception as unhandled_system_error:
-                print(f"💥 CRITICAL SYSTEM ERROR: {unhandled_system_error}")
-
+                print(f"\n💥 CRITICAL SYSTEM ERROR: {unhandled_system_error}")
+            
             finally:
                 user_continue_prompt_response = input("\nWould you like to perform another mathematical operation? (y/n): ").lower().strip()
                 if user_continue_prompt_response != 'y':
+                    self.clear_terminal_screen()
+                    print("📊 SESSION CALCULATION HISTORY 📊")
+                    if not self.calculation_history_log:
+                        print("No successful calculations were made.")
+                    else:
+                        for entry in self.calculation_history_log:
+                            print(f"  -> {entry}")
+                            
                     print(f"\nTOTAL SUCCESSFUL CALCULATIONS RECORDED: {self.successful_calculation_session_counter}")
                     print("🔥 THANK YOU FOR UTILIZING MAANGAS PRO CALCULATOR. STAY ELITE. 🔥")
                     break
