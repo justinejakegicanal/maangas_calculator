@@ -42,12 +42,15 @@ class MaangasCalculatorApplication:
             print(f"🔥 {dynamic_system_greeting.upper()}! WELCOME TO MAANGAS PRO CALCULATOR 🔥\n")
 
             try:
-                print("AVAILABLE MATHEMATICAL OPERATIONS:")
-                print("[1] Addition       [2] Subtraction")
-                print("[3] Multiplication [4] Division")
-                print("[5] Exponentiation [6] Modulo (Remainder)\n")
+                print("╔════════════════════════════════════════╗")
+                print("║   AVAILABLE MATHEMATICAL OPERATIONS    ║")
+                print("╠════════════════════════════════════════╣")
+                print("║ [1] Addition       [2] Subtraction     ║")
+                print("║ [3] Multiplication [4] Division        ║")
+                print("║ [5] Exponentiation [6] Modulo          ║")
+                print("╚════════════════════════════════════════╝")
                 
-                selected_menu_index_choice = input("Select operation index number: ")
+                selected_menu_index_choice = input("Select operation index number (1-6): ")
 
                 if selected_menu_index_choice not in self.mathematical_operations_registry:
                     raise ValueError("The operation choice provided is out of bounds.")
@@ -86,7 +89,7 @@ class MaangasCalculatorApplication:
                 user_continue_prompt_response = input("\nWould you like to perform another mathematical operation? (y/n): ").lower().strip()
                 if user_continue_prompt_response != 'y':
                     self.clear_terminal_screen()
-                    
+
                     print("📊 SESSION CALCULATION HISTORY 📊")
                     if not self.calculation_history_log:
                         print("No successful calculations were made.")
