@@ -98,9 +98,20 @@ class MaangasCalculatorApplication:
                             print(f"  -> {entry}")
                             
                     print(f"\nTOTAL SUCCESSFUL CALCULATIONS RECORDED: {self.successful_calculation_session_counter}")
+                    
+                    if self.calculation_history_log:
+                        try:
+                            with open("calculator_session_history.txt", "a") as file_writer:
+                                file_writer.write(f"\n--- Session Log: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ---\n")
+                                for entry in self.calculation_history_log:
+                                    file_writer.write(f"{entry}\n")
+                            print("💾 Session history successfully exported to 'calculator_session_history.txt'.")
+                        except IOError as file_error:
+                            print(f"⚠️  Failed to save history log: {file_error}")
+                            
                     print("🔥 THANK YOU FOR UTILIZING MAANGAS PRO CALCULATOR. STAY ELITE. 🔥")
                     break
-
+            
 if __name__ == "__main__":
     primary_calculator_app_instance = MaangasCalculatorApplication()
     primary_calculator_app_instance.start_calculator_interface()
