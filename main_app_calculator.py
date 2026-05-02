@@ -13,7 +13,8 @@ class MaangasCalculatorApplication:
             '6': ModuloOperation()
         }
         self.successful_calculation_session_counter = 0
-        self.calculation_history_log = []  
+        self.calculation_history_log = []
+        self.previous_computation_result = None
     
     def clear_terminal_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -51,13 +52,23 @@ class MaangasCalculatorApplication:
                 if selected_menu_index_choice not in self.mathematical_operations_registry:
                     raise ValueError("The operation choice provided is out of bounds.")
 
-                user_provided_first_number = float(input("Enter first numerical value: "))
-                user_provided_second_number = float(input("Enter second numerical value: "))
+                user_provided_first_number = None
+                
+                if self.previous_computation_result is not None:
+                    use_previous_prompt = input(f"Use previous result ({self.previous_computation_result}) as first number? (y/n): ").lower().strip()
+                    if use_previous_prompt == 'y':
+                        user_provided_first_number = self.previous_computation_result
+
+                if user_provided_first_number is None:
+                    user_provided_first_number = self.get_validated_numerical_input("Enter first numerical value: ")
+                
+                user_provided_second_number = self.get_validated_numerical_input("Enter second numerical value: ")
 
                 active_math_operation_instance = self.mathematical_operations_registry[selected_menu_index_choice]
                 final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
                 
                 self.successful_calculation_session_counter += 1
+                self.previous_computation_result = final_computed_result
                 
                 history_entry = f"[{active_math_operation_instance.assigned_operation_name}] {user_provided_first_number} & {user_provided_second_number} = {final_computed_result}"
                 self.calculation_history_log.append(history_entry)
@@ -75,6 +86,7 @@ class MaangasCalculatorApplication:
                 user_continue_prompt_response = input("\nWould you like to perform another mathematical operation? (y/n): ").lower().strip()
                 if user_continue_prompt_response != 'y':
                     self.clear_terminal_screen()
+                    
                     print("📊 SESSION CALCULATION HISTORY 📊")
                     if not self.calculation_history_log:
                         print("No successful calculations were made.")
