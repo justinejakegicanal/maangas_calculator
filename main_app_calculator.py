@@ -26,6 +26,13 @@ class MaangasCalculatorApplication:
             return "Good afternoon"
         else:
             return "Good evening"
+    
+    def get_validated_numerical_input(self, prompt_message_text):
+        while True:
+            try:
+                return float(input(prompt_message_text))
+            except ValueError:
+                print("⚠️  INVALID INPUT: Please enter a valid numerical value. Letters are not accepted.")
         
     def start_calculator_interface(self):
         while True:
