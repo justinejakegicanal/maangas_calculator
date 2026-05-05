@@ -122,7 +122,8 @@ class MaangasCalculatorApplication:
                         except IOError as file_error:
                             print(f"\n⚠️  Failed to save history log: {file_error}")
                             
-                    print("\nThank you!")
+                    print("\n🔥 MAANGAS PRO SYSTEM SHUTTING DOWN. STAY ELITE. 🔥")
+                    print("Thank you!") 
                     break
             
 if __name__ == "__main__":
