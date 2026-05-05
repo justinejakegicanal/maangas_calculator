@@ -1,5 +1,6 @@
 import os
 import datetime
+import time
 from calculator_logic import AdditionOperation, SubtractionOperation, MultiplicationOperation, DivisionOperation, ExponentiationOperation, ModuloOperation
 
 class MaangasCalculatorApplication:
@@ -14,6 +15,7 @@ class MaangasCalculatorApplication:
         }
         self.successful_calculation_session_counter = 0
         self.calculation_history_log = []
+        self.all_computation_results = []
         self.previous_computation_result = None
     
     def clear_terminal_screen(self):
@@ -68,15 +70,22 @@ class MaangasCalculatorApplication:
                 user_provided_second_number = self.get_validated_numerical_input("Enter second numerical value: ")
 
                 active_math_operation_instance = self.mathematical_operations_registry[selected_menu_index_choice]
+                
+                start_cpu_time = time.perf_counter()
                 final_computed_result = active_math_operation_instance.execute_mathematical_calculation(user_provided_first_number, user_provided_second_number)
+                end_cpu_time = time.perf_counter() 
+                
+                execution_speed_ms = (end_cpu_time - start_cpu_time) * 1000
                 
                 self.successful_calculation_session_counter += 1
                 self.previous_computation_result = final_computed_result
+                self.all_computation_results.append(final_computed_result)
                 
                 history_entry = f"[{active_math_operation_instance.assigned_operation_name}] {user_provided_first_number} & {user_provided_second_number} = {final_computed_result}"
                 self.calculation_history_log.append(history_entry)
 
                 print(f"\n✅ COMPUTATION RESULT: {final_computed_result}")
+                print(f"⏱️  Calculated in: {execution_speed_ms:.4f} ms")
 
             except ValueError as captured_value_error_message:
                 print(f"\n⚠️  INVALID INPUT DETECTED: {captured_value_error_message}")
@@ -99,17 +108,21 @@ class MaangasCalculatorApplication:
                             
                     print(f"\nTOTAL SUCCESSFUL CALCULATIONS RECORDED: {self.successful_calculation_session_counter}")
                     
+                    if self.all_computation_results:
+                        print(f"📈 Highest Value Reached: {max(self.all_computation_results)}")
+                        print(f"📉 Lowest Value Reached: {min(self.all_computation_results)}")
+                    
                     if self.calculation_history_log:
                         try:
                             with open("calculator_session_history.txt", "a") as file_writer:
                                 file_writer.write(f"\n--- Session Log: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} ---\n")
                                 for entry in self.calculation_history_log:
                                     file_writer.write(f"{entry}\n")
-                            print("💾 Session history successfully exported to 'calculator_session_history.txt'.")
+                            print("\n💾 Session history successfully exported to 'calculator_session_history.txt'.")
                         except IOError as file_error:
-                            print(f"⚠️  Failed to save history log: {file_error}")
+                            print(f"\n⚠️  Failed to save history log: {file_error}")
                             
-                    print("🔥 THANK YOU FOR UTILIZING MAANGAS PRO CALCULATOR. STAY ELITE. 🔥")
+                    print("\nThank you!")
                     break
             
 if __name__ == "__main__":
